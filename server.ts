@@ -5,6 +5,8 @@ dotenv.config();
 
 const app: Express = express();
 
-app.listen(3003, () => {
-  console.log("Server running on port 3003");
+const port = process.env.PORT || 3003;
+
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
 });
