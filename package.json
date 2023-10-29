@@ -1,0 +1,22 @@
+{
+  "name": "short-link",
+  "version": "1.0.0",
+  "description": "A URL Shortner",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/mikkybang/short-link.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mikkybang/short-link/issues"
+  },
+  "homepage": "https://github.com/mikkybang/short-link#readme",
+  "devDependencies": {
+    "typescript": "^5.2.2"
+  }
+}
