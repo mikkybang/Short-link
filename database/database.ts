@@ -1,4 +1,8 @@
-abstract class Database {
+export abstract class Database {
+  abstract connect(): void;
+
+  abstract disconnect(): void;
+
   abstract set(
     key: string,
     value: Record<string, any>
