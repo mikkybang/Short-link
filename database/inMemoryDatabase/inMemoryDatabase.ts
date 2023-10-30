@@ -1,5 +1,9 @@
+import { Service } from "typedi";
+import "reflect-metadata";
+
 import { Database } from "../database";
 
+@Service()
 export class InMemoryDatabase extends Database {
   data: Record<string, any>;
   constructor() {

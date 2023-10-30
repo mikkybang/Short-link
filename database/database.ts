@@ -1,19 +1,31 @@
-export abstract class Database {
-  abstract connect(): void;
+export class Database {
+  connect() {
+    throw new Error("connect method must be implemented");
+  }
 
-  abstract disconnect(): void;
+  disconnect() {
+    throw new Error("disconnect method must be implemented");
+  }
 
-  abstract set(
+  async set(
     key: string,
     value: Record<string, any>
-  ): Promise<Record<string, any>>;
+  ): Promise<Record<string, any>> {
+    throw new Error("set method must be implemented");
+  }
 
-  abstract get(key: string): Promise<Record<string, any>>;
+  async get(key: string): Promise<Record<string, any>> {
+    throw new Error("get method must be implemented");
+  }
 
-  abstract delete(key: string): Promise<void>;
+  async delete(key: string): Promise<void> {
+    throw new Error("delete method must be implemented");
+  }
 
-  abstract update(
+  async update(
     key: string,
     value: Record<string, any>
-  ): Promise<Record<string, any>>;
+  ): Promise<Record<string, any>> {
+    throw new Error("update method must be implemented");
+  }
 }
