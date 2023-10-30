@@ -9,7 +9,7 @@ interface UrlEntity {
   hash: string;
   sources: Record<string, number>;
   createdAt: Date;
-  lastHitAt: Date;
+  lastHitAt: Date | null;
 }
 
 @Service()
@@ -18,16 +18,21 @@ export class UrlShortnerService {
     console.log("UrlShortnerService initialized");
   }
 
-  async encodeUrl(url: string): Promise<string> {
+  async encodeUrl(url: string): Promise<UrlEntity> {
     const urlHash = "testUrl";
-    
-
+    const shortURLData: UrlEntity = {
+      hash: urlHash,
+      originalUrl: url,
+      sources: {},
+      createdAt: new Date(),
+      lastHitAt: null,
+    };
     await this.db.set(urlHash, { url });
-    return urlHash;
+    return shortURLData;
   }
 
   async decodeUrl(shortUrl: string): Promise<string> {
-    const data = await this.db.get(shortUrl);
-    return data.url;
+    const data = await this.db.get<UrlEntity>(shortUrl);
+    return data.originalUrl;
   }
 }

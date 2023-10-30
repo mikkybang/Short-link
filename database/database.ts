@@ -7,14 +7,14 @@ export class Database {
     throw new Error("disconnect method must be implemented");
   }
 
-  async set(
+  async set<T>(
     key: string,
     value: Record<string, any>
-  ): Promise<Record<string, any>> {
+  ): Promise<T | Record<string, any>> {
     throw new Error("set method must be implemented");
   }
 
-  async get(key: string): Promise<Record<string, any>> {
+  async get<T>(key: string): Promise<T | Record<string, any>> {
     throw new Error("get method must be implemented");
   }
 
@@ -22,10 +22,10 @@ export class Database {
     throw new Error("delete method must be implemented");
   }
 
-  async update(
+  async update<T>(
     key: string,
     value: Record<string, any>
-  ): Promise<Record<string, any>> {
+  ): Promise<T | Record<string, any>> {
     throw new Error("update method must be implemented");
   }
 }

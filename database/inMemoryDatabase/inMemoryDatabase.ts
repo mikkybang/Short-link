@@ -21,12 +21,15 @@ export class InMemoryDatabase extends Database {
     return;
   }
 
-  set(key: string, value: Record<string, any>): Promise<Record<string, any>> {
+  set<T>(
+    key: string,
+    value: Record<string, any>
+  ): Promise<T | Record<string, any>> {
     this.data[key] = value;
     return Promise.resolve(value);
   }
 
-  get(key: string) {
+  get<T>(key: string): Promise<T | Record<string, any>> {
     return this.data[key];
   }
 
@@ -35,10 +38,10 @@ export class InMemoryDatabase extends Database {
     return Promise.resolve();
   }
 
-  update(
+  update<T>(
     key: string,
     value: Record<string, any>
-  ): Promise<Record<string, any>> {
+  ): Promise<T | Record<string, any>> {
     if (!this.data[key]) {
       throw new Error("Key not found");
     }
