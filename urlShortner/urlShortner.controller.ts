@@ -42,16 +42,20 @@ export default class UrlShortnerController {
 
   public async decodeUrl(req: Request, res: Response) {
     try {
-      const { shortUrl } = req.params;
-      const result = await this.urlShortnerService.decodeUrl(shortUrl);
-
-      return {
-        message: "Url decoded successfully",
-        data: result,
-      };
-    } catch (error) {
+      const { url } = req.body;
+      const result = await this.urlShortnerService.decodeUrl(url);
+      return res
+        .send({
+          message: "Url decoded successfully",
+          data: result,
+        })
+        .status(200);
+    } catch (error: any) {
       console.log(error);
-      throw new Error("Error while decoding url");
+      return res.status(400).send({
+        message: error.message || "Error while decoding url",
+        data: error,
+      });
     }
   }
 }

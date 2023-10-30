@@ -20,12 +20,10 @@ export class UrlShortnerService {
 
   async encodeUrl(url: string): Promise<UrlEntity> {
     if (!this.isValidUrl(url)) {
-      throw new Error("Invalid url");
+      throw new Error("invalid url");
     }
 
     const uniqueValue = `${url}-${this.generateRandomId()}}`;
-
-    console.log(uniqueValue);
 
     const urlHash = crypto
       .createHash("sha256")
@@ -39,12 +37,20 @@ export class UrlShortnerService {
       createdAt: new Date(),
       lastHitAt: null,
     };
-    await this.db.set(urlHash, { url });
+    await this.db.set(urlHash, shortURLData);
     return shortURLData;
   }
 
   async decodeUrl(shortUrl: string): Promise<string> {
-    const data = await this.db.get<UrlEntity>(shortUrl);
+    const hash = shortUrl.split("/").pop();
+
+    if (!hash) throw new Error("invalid url");
+
+    const data = await this.db.get<UrlEntity>(hash);
+
+    if (!data) {
+      throw new Error("url not found");
+    }
     return data.originalUrl;
   }
 
