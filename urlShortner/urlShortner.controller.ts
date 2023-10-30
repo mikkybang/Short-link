@@ -22,7 +22,7 @@ export default class UrlShortnerController {
 
   public async encodeUrl(req: Request, res: Response) {
     try {
-      const { url } = req.body;
+      const { url } = req?.body;
       if (!url) throw new Error("Url not provided");
       const result = await this.urlShortnerService.encodeUrl(url);
       res

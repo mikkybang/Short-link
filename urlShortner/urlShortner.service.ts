@@ -19,6 +19,10 @@ export class UrlShortnerService {
   }
 
   async encodeUrl(url: string): Promise<UrlEntity> {
+    if (!this.isValidUrl(url)) {
+      throw new Error("Invalid url");
+    }
+
     const urlHash = crypto
       .createHash("sha256")
       .update(url)
@@ -38,5 +42,11 @@ export class UrlShortnerService {
   async decodeUrl(shortUrl: string): Promise<string> {
     const data = await this.db.get<UrlEntity>(shortUrl);
     return data.originalUrl;
+  }
+
+  isValidUrl(url: string) {
+    const urlRegex =
+      /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/\w .-]*)*\/?$/;
+    return urlRegex.test(url);
   }
 }

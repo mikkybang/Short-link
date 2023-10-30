@@ -9,6 +9,9 @@ dotenv.config();
 
 const app: Express = express();
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 //Dependency Injection
 Container.set(Database, new InMemoryDatabase());
 
