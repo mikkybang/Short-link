@@ -1,8 +1,13 @@
 import { Request, Response } from "express";
 import { UrlShortnerService } from "./urlShortner.service";
+import { Inject, Service } from "typedi";
 
+@Service()
 export default class UrlShortnerController {
-  constructor(private urlShortnerService: UrlShortnerService) {}
+  constructor(
+    @Inject(() => UrlShortnerService)
+    private urlShortnerService: UrlShortnerService
+  ) {}
 
   public async encodeUrl(req: Request, res: Response) {
     try {
