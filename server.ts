@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import { Container } from "typedi";
 import { Database } from "./database/database";
 import { InMemoryDatabase } from "./database/inMemoryDatabase/inMemoryDatabase";
-import initUrlShortnerModule from "./urlShortner";
+import initUrlShortenerModule from "./urlShortener";
 
 dotenv.config();
 
@@ -18,7 +18,7 @@ Container.set(Database, new InMemoryDatabase());
 const db = Container.get(Database);
 db.connect();
 
-initUrlShortnerModule(app);
+initUrlShortenerModule(app);
 
 const port = process.env.PORT || 3003;
 

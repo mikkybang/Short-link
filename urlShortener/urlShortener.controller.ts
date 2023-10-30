@@ -2,13 +2,13 @@ import { Request, Response, Express } from "express";
 import { Inject, Service } from "typedi";
 import "reflect-metadata";
 
-import { UrlShortnerService } from "./urlShortner.service";
+import { UrlShortenerService } from "./urlShortener.service";
 
 @Service()
-export default class UrlShortnerController {
+export default class UrlShortenerController {
   constructor(
-    @Inject(() => UrlShortnerService)
-    private urlShortnerService: UrlShortnerService,
+    @Inject(() => UrlShortenerService)
+    private urlShortenerService: UrlShortenerService,
     private app: Express
   ) {
     this.initializeRoutes();
@@ -24,7 +24,7 @@ export default class UrlShortnerController {
     try {
       const { url } = req?.body;
       if (!url) throw new Error("Url not provided");
-      const result = await this.urlShortnerService.encodeUrl(url);
+      const result = await this.urlShortenerService.encodeUrl(url);
       res
         .send({
           message: "Url encoded successfully",
@@ -43,7 +43,7 @@ export default class UrlShortnerController {
   public async decodeUrl(req: Request, res: Response) {
     try {
       const { url } = req.body;
-      const result = await this.urlShortnerService.decodeUrl(url);
+      const result = await this.urlShortenerService.decodeUrl(url);
       return res
         .send({
           message: "Url decoded successfully",

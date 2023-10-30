@@ -13,9 +13,9 @@ interface UrlEntity {
 }
 
 @Service()
-export class UrlShortnerService {
+export class UrlShortenerService {
   constructor(private db: Database) {
-    console.log("UrlShortnerService initialized");
+    console.log("UrlShortenerService initialized");
   }
 
   async encodeUrl(url: string): Promise<UrlEntity> {
