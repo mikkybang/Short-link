@@ -4,6 +4,14 @@ import * as crypto from "crypto";
 
 import { Database } from "../database/database";
 
+interface UrlEntity {
+  originalUrl: string;
+  hash: string;
+  sources: Record<string, number>;
+  createdAt: Date;
+  lastHitAt: Date;
+}
+
 @Service()
 export class UrlShortnerService {
   constructor(private db: Database) {
@@ -11,9 +19,11 @@ export class UrlShortnerService {
   }
 
   async encodeUrl(url: string): Promise<string> {
-    const shortUrl = "testUrl";
-    await this.db.set(shortUrl, { url });
-    return shortUrl;
+    const urlHash = "testUrl";
+    
+
+    await this.db.set(urlHash, { url });
+    return urlHash;
   }
 
   async decodeUrl(shortUrl: string): Promise<string> {
