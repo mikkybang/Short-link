@@ -19,7 +19,11 @@ export class UrlShortnerService {
   }
 
   async encodeUrl(url: string): Promise<UrlEntity> {
-    const urlHash = "testUrl";
+    const urlHash = crypto
+      .createHash("sha256")
+      .update(url)
+      .digest("hex")
+      .substring(0, 6);
     const shortURLData: UrlEntity = {
       hash: urlHash,
       originalUrl: url,
