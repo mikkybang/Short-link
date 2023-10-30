@@ -4,7 +4,7 @@ import * as crypto from "crypto";
 
 import { Database } from "../database/database";
 
-interface UrlEntity {
+export interface UrlEntity {
   originalUrl: string;
   hash: string;
   sources: Record<string, number>;
