@@ -16,14 +16,14 @@ export default class UrlShortnerController {
 
   private initializeRoutes() {
     console.log("Initializing routes");
-    this.app.get("/encode", this.encodeUrl.bind(this));
+    this.app.post("/encode", this.encodeUrl.bind(this));
     this.app.post("/decode", this.decodeUrl.bind(this));
   }
 
   public async encodeUrl(req: Request, res: Response) {
     try {
-      //   const { url } = req.body;
-      const url = "test";
+      const { url } = req.body;
+      if (!url) throw new Error("Url not provided");
       const result = await this.urlShortnerService.encodeUrl(url);
       res
         .send({
@@ -32,9 +32,11 @@ export default class UrlShortnerController {
         })
         .status(201);
       return;
-    } catch (error) {
-      console.log(error);
-      throw new Error("Error while encoding url");
+    } catch (error: any) {
+      return res.status(400).send({
+        message: error.message || "Error while encoding url",
+        data: error,
+      });
     }
   }
 
