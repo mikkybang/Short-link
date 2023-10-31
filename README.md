@@ -33,7 +33,10 @@ This project is a URL shortening service built with Express.js and TypeScript. I
     git clone https://github.com/mikkybang/short-link.git
 
     # Change to the project directory
-    cd url-shortener
+    cd short-link
+
+    Setup your env variables using the example defined [here](https://github.com/mikkybang/short-link/blob/main/env.example)
+    You can create a `.env` file or set your OS environment variables
 
     # Install the dependencies
     npm install
