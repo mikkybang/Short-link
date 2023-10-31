@@ -40,4 +40,24 @@ describe("UrlShortenerService", () => {
     const decodedUrl = await urlShortenerService.decodeUrl(shortUrl);
     expect(decodedUrl).toBe(originalUrl);
   });
+
+  it("should retrieve URL Statistics", async () => {
+    const originalUrl = "http://example.com";
+    const hash = "testHash";
+
+    await mockDb.set(hash, {
+      hash: hash,
+      originalUrl: originalUrl,
+      sources: {
+        google: 2,
+        facebook: 1,
+        twitter: 3,
+      },
+      createdAt: new Date(),
+      lastHitAt: new Date(),
+    });
+
+    const stats = await urlShortenerService.getUrlStatistics(hash);
+    expect(stats.totalHits).toBe(6);
+  });
 });
