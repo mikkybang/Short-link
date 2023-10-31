@@ -12,6 +12,24 @@ export interface UrlEntity {
   lastHitAt: Date | null;
 }
 
+interface UrlStatistics {
+  totalHits: number;
+  sources?: Record<string, number>;
+  originalUrl: string;
+  hash: string;
+  createdAt: Date;
+  lastHitAt: Date | null;
+}
+
+interface UrlStatistics {
+  totalHits: number;
+  sources?: Record<string, number>;
+  originalUrl: string;
+  hash: string;
+  createdAt: Date;
+  lastHitAt: Date | null;
+}
+
 @Service()
 export class UrlShortenerService {
   constructor(private db: Database) {
@@ -54,7 +72,7 @@ export class UrlShortenerService {
     return data.originalUrl;
   }
 
-  async getUrlStatistics(hash: string) {
+  async getUrlStatistics(hash: string): Promise<UrlStatistics> {
     const data = await this.db.get<UrlEntity>(hash);
     if (!data) {
       throw new Error("url not found");
@@ -64,8 +82,12 @@ export class UrlShortenerService {
     ).reduce((a: number, b: number) => a + b, 0);
 
     return {
-      ...data,
       totalHits,
+      ...(data.sources && { sources: data.sources }),
+      originalUrl: data.originalUrl,
+      hash: data.hash,
+      createdAt: data.createdAt,
+      lastHitAt: data.lastHitAt,
     };
   }
 
