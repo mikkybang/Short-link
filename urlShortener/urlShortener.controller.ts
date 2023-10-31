@@ -27,14 +27,14 @@ export default class UrlShortenerController {
       const { url } = req?.body;
       if (!url) throw new Error("Url not provided");
       const result = await this.urlShortenerService.encodeUrl(url);
-      res
-        .send({
-          message: "Url encoded successfully",
-          data: result,
-        })
-        .status(201);
+      res.status(201).json({
+        message: "Url encoded successfully",
+        data: result,
+      });
+
       return;
     } catch (error: any) {
+      console.log(error);
       return res.status(400).send({
         message: error.message || "Error while encoding url",
         data: error,
@@ -46,12 +46,10 @@ export default class UrlShortenerController {
     try {
       const { url } = req.body;
       const result = await this.urlShortenerService.decodeUrl(url);
-      return res
-        .send({
-          message: "Url decoded successfully",
-          data: result,
-        })
-        .status(200);
+      return res.status(200).json({
+        message: "Url decoded successfully",
+        data: result,
+      });
     } catch (error: any) {
       console.log(error);
       return res.status(400).send({
@@ -65,12 +63,10 @@ export default class UrlShortenerController {
     try {
       const { url } = req.params;
       const result = await this.urlShortenerService.getUrlStatistics(url);
-      return res
-        .send({
-          message: "Url Statistics",
-          data: result,
-        })
-        .status(200);
+      return res.status(200).json({
+        message: "Url Statistics",
+        data: result,
+      });
     } catch (error: any) {
       console.log(error);
       return res.status(400).send({
