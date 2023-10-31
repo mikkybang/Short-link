@@ -87,4 +87,22 @@ describe("UrlShortenerService", () => {
     expect(stats.sources["unknown"]).toBe(1);
     expect(stats.totalHits).toBe(8);
   });
+
+  it("should throw error if url not found", async () => {
+    const hash = "testHash";
+    try {
+      await urlShortenerService.getUrlStatistics(hash);
+    } catch (error: any) {
+      expect(error.message).toBe("url not found");
+    }
+  });
+
+  it("should throw invalid url error", async () => {
+    const shortUrl = "invalidTestUrl";
+    try {
+      await urlShortenerService.encodeUrl(shortUrl);
+    } catch (error: any) {
+      expect(error.message).toBe("invalid url");
+    }
+  });
 });
