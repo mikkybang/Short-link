@@ -19,6 +19,7 @@ export default class UrlShortenerController {
     this.app.post("/encode", this.encodeUrl.bind(this));
     this.app.post("/decode", this.decodeUrl.bind(this));
     this.app.get("/statistic/:url", this.getUrlStatistics.bind(this));
+    this.app.get("/:hash", this.hitUrl.bind(this));
   }
 
   public async encodeUrl(req: Request, res: Response) {
@@ -74,6 +75,22 @@ export default class UrlShortenerController {
       console.log(error);
       return res.status(400).send({
         message: error.message || "Error while retriving url statistics",
+        data: error,
+      });
+    }
+  }
+
+  public async hitUrl(req: Request, res: Response) {
+    try {
+      const { hash } = req.params;
+      const { src } = req.query;
+      const source = src ? src.toString().toLowerCase() : "unknown";
+      const result = await this.urlShortenerService.hitUrl(hash, source);
+      return res.redirect(result);
+    } catch (error: any) {
+      console.log(error);
+      return res.status(404).send({
+        message: error.message || "Error while hitting url",
         data: error,
       });
     }
