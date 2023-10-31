@@ -69,7 +69,7 @@ Alternatively, you can run the project inside a Docker container using the follo
    ```
 2. Run a Docker container from the image:
    ```sh
-   docker run -p 3003:3003 -d short-link
+   docker run  --env-file .env -p 3003:3003 -d short-link
    ```
 
 The application will be accessible at [http://localhost:3003](http://localhost:3003).
