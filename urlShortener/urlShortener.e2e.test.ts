@@ -32,7 +32,39 @@ describe("UrlShortenerController e2e test", () => {
       .post("/encode")
       .send({ url: originalUrl })
       .expect(201);
-
     expect(response.body.data.originalUrl).toBe(originalUrl);
+  });
+
+  test("should decode a URL", async () => {
+    const originalUrl = "http://example.com";
+
+    const shortUrlData = await request(app)
+      .post("/encode")
+      .send({ url: originalUrl })
+      .expect(201);
+
+    const shortUrl = `http://shortUrl/${shortUrlData.body.data.hash}`;
+
+    const response = await request(app)
+      .post("/decode")
+      .send({ url: shortUrl })
+      .expect(200);
+    expect(response.body.data).toBe(originalUrl);
+  });
+
+  test("should retrieve URL Statistics", async () => {
+    const originalUrl = "http://example.com";
+
+    const shortUrlData = await request(app)
+      .post("/encode")
+      .send({ url: originalUrl })
+      .expect(201);
+
+    const hash = shortUrlData.body.data.hash;
+
+    const response = await request(app).get(`/statistic/${hash}`).expect(200);
+    expect(response.body.data.originalUrl).toEqual(originalUrl);
+    expect(response.body.data.totalHits).toEqual(0);
+    expect(response.body.data.sources).toEqual({});
   });
 });
