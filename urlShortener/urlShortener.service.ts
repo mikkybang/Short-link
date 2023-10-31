@@ -10,6 +10,7 @@ export interface UrlEntity {
   sources: Record<string, number>;
   createdAt: Date;
   lastHitAt: Date | null;
+  shortLink?: string;
 }
 
 interface UrlStatistics {
