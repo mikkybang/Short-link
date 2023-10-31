@@ -20,6 +20,7 @@ interface UrlStatistics {
   hash: string;
   createdAt: Date;
   lastHitAt: Date | null;
+  shortLink?: string;
 }
 
 @Service()
