@@ -18,6 +18,10 @@ export class Database {
     throw new Error("get method must be implemented");
   }
 
+  async getAll<T>(): Promise<T | Record<string, any>> {
+    throw new Error("getAll method must be implemented");
+  }
+
   async delete(key: string): Promise<void> {
     throw new Error("delete method must be implemented");
   }

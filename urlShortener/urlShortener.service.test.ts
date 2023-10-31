@@ -8,7 +8,7 @@ describe("UrlShortenerService", () => {
   let urlShortenerService: UrlShortenerService;
   let mockDb: Database;
 
-  beforeEach(() => {
+  beforeAll(() => {
     // Register the mock Database class
     Container.set(Database, new InMemoryDatabase());
 
@@ -23,5 +23,21 @@ describe("UrlShortenerService", () => {
     const result = await urlShortenerService.encodeUrl(originalUrl);
     const storedUrl = await mockDb.get<UrlEntity>(result.hash);
     expect(storedUrl.originalUrl).toBe(originalUrl);
+  });
+
+  it("should decode a URL", async () => {
+    const originalUrl = "http://example.com";
+    const hash = "testHash";
+    const shortUrl = `http://testUrl.com/${hash}`;
+
+    await mockDb.set(hash, {
+      hash: hash,
+      originalUrl: originalUrl,
+      sources: {},
+      createdAt: new Date(),
+      lastHitAt: null,
+    });
+    const decodedUrl = await urlShortenerService.decodeUrl(shortUrl);
+    expect(decodedUrl).toBe(originalUrl);
   });
 });

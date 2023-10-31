@@ -33,6 +33,10 @@ export class InMemoryDatabase extends Database {
     return this.data[key];
   }
 
+  async getAll<T>(): Promise<T | Record<string, any>> {
+    return this.data;
+  }
+
   delete(key: string): Promise<void> {
     delete this.data[key];
     return Promise.resolve();
