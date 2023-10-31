@@ -49,7 +49,10 @@ export class UrlShortenerService {
       lastHitAt: null,
     };
     await this.db.set(urlHash, shortURLData);
-    return shortURLData;
+
+    const shortLink = `${process.env.SHORT_BASE_URL}/${urlHash}`;
+
+    return { ...shortURLData, shortLink };
   }
 
   async decodeUrl(shortUrl: string): Promise<string> {
@@ -74,6 +77,8 @@ export class UrlShortenerService {
       data.sources as Record<string, number>
     ).reduce((a: number, b: number) => a + b, 0);
 
+    const shortLink = `${process.env.SHORT_BASE_URL}/${data.hash}`;
+
     return {
       totalHits,
       sources: data.sources,
@@ -81,6 +86,7 @@ export class UrlShortenerService {
       hash: data.hash,
       createdAt: data.createdAt,
       lastHitAt: data.lastHitAt,
+      shortLink,
     };
   }
 
