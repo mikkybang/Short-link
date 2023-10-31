@@ -54,6 +54,21 @@ export class UrlShortenerService {
     return data.originalUrl;
   }
 
+  async getUrlStatistics(hash: string) {
+    const data = await this.db.get<UrlEntity>(hash);
+    if (!data) {
+      throw new Error("url not found");
+    }
+    const totalHits = Object.values(
+      data.sources as Record<string, number>
+    ).reduce((a: number, b: number) => a + b, 0);
+
+    return {
+      ...data,
+      totalHits,
+    };
+  }
+
   isValidUrl(url: string) {
     const urlRegex =
       /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/\w .-]*)*\/?$/;
