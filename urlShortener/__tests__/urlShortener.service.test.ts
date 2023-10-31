@@ -1,8 +1,8 @@
 import "reflect-metadata";
 import { Container } from "typedi";
-import { Database } from "../database/database";
-import { UrlEntity, UrlShortenerService } from "./urlShortener.service";
-import { InMemoryDatabase } from "../database/inMemoryDatabase/inMemoryDatabase";
+import { Database } from "../../database/database";
+import { UrlEntity, UrlShortenerService } from "../urlShortener.service";
+import { InMemoryDatabase } from "../../database/inMemoryDatabase/inMemoryDatabase";
 
 describe("UrlShortenerService", () => {
   let urlShortenerService: UrlShortenerService;

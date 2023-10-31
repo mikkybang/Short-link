@@ -2,10 +2,10 @@ import request from "supertest";
 import express, { Express } from "express";
 import { Container } from "typedi";
 
-import UrlShortenerController from "./urlShortener.controller";
-import { Database } from "../database/database";
-import { InMemoryDatabase } from "../database/inMemoryDatabase/inMemoryDatabase";
-import { UrlShortenerService } from "./urlShortener.service";
+import UrlShortenerController from "../urlShortener.controller";
+import { Database } from "../../database/database";
+import { InMemoryDatabase } from "../../database/inMemoryDatabase/inMemoryDatabase";
+import { UrlShortenerService } from "../urlShortener.service";
 
 describe("UrlShortenerController e2e test", () => {
   let app: Express;
