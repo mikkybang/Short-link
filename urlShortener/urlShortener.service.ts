@@ -14,16 +14,7 @@ export interface UrlEntity {
 
 interface UrlStatistics {
   totalHits: number;
-  sources?: Record<string, number>;
-  originalUrl: string;
-  hash: string;
-  createdAt: Date;
-  lastHitAt: Date | null;
-}
-
-interface UrlStatistics {
-  totalHits: number;
-  sources?: Record<string, number>;
+  sources: Record<string, number>;
   originalUrl: string;
   hash: string;
   createdAt: Date;
@@ -83,7 +74,7 @@ export class UrlShortenerService {
 
     return {
       totalHits,
-      ...(data.sources && { sources: data.sources }),
+      sources: data.sources,
       originalUrl: data.originalUrl,
       hash: data.hash,
       createdAt: data.createdAt,
